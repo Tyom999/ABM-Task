@@ -5,7 +5,7 @@ const upload = require('../middleware/upload');
 const jwtCompare = require('../middleware/jwtCompare');
 const carsValidator = require('../validators/validateCars');
 
-// router.use(jwtCompare);
+router.use(jwtCompare);
 
 router.get('/getAllCars', carController.getAllCars);
 
