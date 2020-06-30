@@ -1,0 +1,382 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ABM-Task",
+    "description": "Task API Documentation"
+  },
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "API for authentication in the system"
+    },
+    {
+      "name": "Cars",
+      "description": "API for cars in the system"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths":
+  {
+    "/auth/SignIn": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login in system",
+        "requestBody": {
+          "description": "Login Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/SignIn"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SignIn"
+            }
+          },
+          "401": {
+            "description": "Error password"
+          },
+          "404": {
+            "description": "Error User not found."
+          },
+          "500": {
+            "description": "Error Server."
+          }
+        }
+      }
+    },
+    "/api/auth/SignUp": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Create a new user in system",
+        "requestBody": {
+          "description": "Users Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/SignUp"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SignUp"
+            }
+          },
+          "500": {
+            "description": "Error Bad post data."
+          },
+          "401": {
+            "description": "Error this email is busy'."
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logout from system",
+        "requestBody": {
+          "description": "Users Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/logout"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SignUp"
+            }
+          },
+          "401": {
+            "description": "Error: You didnt login"
+          }
+        }
+      }
+    },
+    "/api/getAllCars": {
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Get all cars in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          },
+          "404": {
+            "description": "Failed. cars not found."
+          }
+        }
+      }
+    },
+    "/api/addCar": {
+      "post": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Create a new car in system",
+        "requestBody": {
+          "description": "Cars Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Car"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          },
+          "500": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "api/getCarById/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the car that we want to match",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Get car with given ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Car with id",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          },
+          "404": {
+            "description": "Failed. car not found."
+          }
+        }
+      }
+    },
+    "api/updateCar/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the car that we want to match",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "summary": "Update car with given ID",
+        "tags": [
+          "Cars"
+        ],
+        "requestBody": {
+          "description": "Car Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Car"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Car with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          },
+          "500": {
+            "description": "Failed. Bad post data."
+          },
+          "404": {
+            "description": "Failed. car not found."
+          }
+        }
+      }
+    },
+    "/api/deleteCar/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the car that we want to match",
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "summary": "Delete car with given ID",
+        "tags": [
+          "Cars"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Delete Car with id",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          },
+          "500": {
+            "description": "Failed. Bad post data."
+          },
+          "404": {
+            "description": "Failed. Car not found."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Users": {
+      "type": "object",
+      "properties": {
+        "productImage": {
+          "type": "string"
+        },
+        "typeCar": {
+          "type":"string",
+          "enum": ["Sale", "Rent"],
+          "default": "Sale"
+        },
+        "mark": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "year": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string"
+        },
+        "engine": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    },
+    "SignUp": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "SignIn": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
