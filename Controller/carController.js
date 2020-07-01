@@ -79,7 +79,7 @@ module.exports = {
                     res.status(201).json({
                         msg: 'Updated successfully'
                     })
-                }).save();
+                });
             } catch (e) {
                 res.status(409).json({
                     error: e
