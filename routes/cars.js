@@ -13,7 +13,7 @@ router.get('/getCarById/:id', carController.getCarById);
 
 router.post('/addCar', upload , carsValidator.rules, carController.addCar);
 
-router.put('/updateCar/:id', carsValidator.rules, carController.updateCar);
+router.put('/updateCar/:id', upload ,  carsValidator.rules, carController.updateCar);
 
 router.delete('/deleteCar/:id', carController.deleteCar);
 
