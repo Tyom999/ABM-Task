@@ -319,7 +319,7 @@
     }
   },
   "definitions": {
-    "Users": {
+    "Car": {
       "type": "object",
       "properties": {
         "productImage": {
