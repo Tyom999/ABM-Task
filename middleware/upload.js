@@ -27,6 +27,6 @@ const upload = multer({
         fileSize: 1024 * 1024 * 5
     },
     fileFilter
-}).array('productImage');
+}).array('productImage', 3);
 
 module.exports = upload;
